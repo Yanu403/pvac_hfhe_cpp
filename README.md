@@ -38,7 +38,7 @@ int main() {
 
     Cipher sum  = ct_add(pk, a, b); // 42 + 17 = 59
     Cipher diff = ct_sub(pk, a, b); // 42 - 17 = 25
-    Cipher prod = ct_mul(pk, a, b);           // 42 * 17 = 714
+    Cipher prod = ct_mul(pk, a, b); // 42 * 17 = 714
 
     Cipher scaled = ct_scale(pk, a, fp_from_u64(3)); // 42 * 3 = 126
 
