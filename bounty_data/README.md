@@ -20,6 +20,8 @@ bounty_data/
 ├── params.json # scheme parameters
 ```
 
+the gen params in `bounty_test.cpp` are made with a small security gap to create conditions for hypergraph and syndrome analysis
+
 **key struct:**
 you may find this information useful, but for real researchers, none of this matters (if something contains bytes and they can be read, that's enough)
 ```cpp
