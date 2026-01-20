@@ -181,6 +181,37 @@ void printable(const std::string& s) {
     std::cout << "\n";
 }
 
+static void dump_cipher_structure(const Cipher& C) {
+    std::cout << "=== Cipher Structure Dump ===\n";
+    std::cout << "Total layers: " << C.L.size() << "\n";
+    std::cout << "Total edges : " << C.E.size() << "\n";
+
+    std::vector<size_t> edges_per_layer(C.L.size(), 0);
+    for (const auto& e : C.E) {
+        if (e.layer_id < edges_per_layer.size())
+            edges_per_layer[e.layer_id]++;
+    }
+
+    for (size_t i = 0; i < C.L.size(); ++i) {
+        const auto& L = C.L[i];
+        std::cout << "Layer " << i << ": ";
+
+        if (L.rule == RRule::BASE) {
+            std::cout << "BASE";
+            std::cout << " | seed.nonce.lo=" << L.seed.nonce.lo;
+            std::cout << " seed.nonce.hi=" << L.seed.nonce.hi;
+        } else if (L.rule == RRule::PROD) {
+            std::cout << "PROD";
+            std::cout << " | pa=" << L.pa << " pb=" << L.pb;
+        } else {
+            std::cout << "UNKNOWN";
+        }
+
+        std::cout << " | edges=" << edges_per_layer[i] << "\n";
+    }
+
+    std::cout << "=============================\n";
+}
 int main(int argc, char** argv) {
     std::string dir = (argc > 1) ? argv[1] : "bounty_data";
 
